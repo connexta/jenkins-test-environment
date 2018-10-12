@@ -51,10 +51,3 @@ unclassified:
   location:
     adminAddress: you@example.com
     url: ${JENKINS_URL}
-
-plugins:
-  required:
-    git: 3.9.1
-    docker-plugin: 1.1.4
-    github-branch-source: 2.4.0
-    blueocean: 1.9.0
