@@ -1,4 +1,8 @@
 jenkins:
+
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
   securityRealm:
     local:
       allowsSignup: false
@@ -6,6 +10,9 @@ jenkins:
         - id: "admin"
           password: "admin"
   authorizationStrategy: loggedInUsersCanDoAnything
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: false
 
   numExecutors: 5
   scmCheckoutRetryCount: 2
@@ -28,10 +35,32 @@ jenkins:
             instanceCapStr: "10"
 
 tool:
+  jdk:
+    defaultProperties:
+    - installSource:
+        installers:
+        - jdkInstaller:
+            acceptLicense: false
+    installations:
+    - name: "jdk8-latest"
+      properties:
+      - installSource:
+          installers:
+          - jdkInstaller:
+              acceptLicense: true
+              id: "jdk-8u181-oth-JPR"
   git:
     installations:
       - name: git
         home: /usr/local/bin/git
+  dockertool:
+    installations:
+    - name: "docker-latest"
+      properties:
+      - installSource:
+          installers:
+          - docker:
+              version: "latest"
 
 security:
   remotingCLI:
@@ -51,3 +80,8 @@ unclassified:
   location:
     adminAddress: you@example.com
     url: ${JENKINS_URL}
+
+plugins:
+  sites:
+  - id: "default"
+    url: "https://updates.jenkins.io/update-center.json"
